@@ -29,11 +29,12 @@ const initializeDBAndServer = async () => {
 initializeDBAndServer();
 
 // Get Books API
-app.get("/books/", async (request, response) => {
-  const authHeader = request.headers["authorisation"];
+app.get("/books/", (request, response) => {
+  const authHeader = request.headers["authorization"];
   let jwtToken;
   if (authHeader !== undefined) {
     jwtToken = authHeader.split(" ")[1];
+  }
     if (jwtToken === undefined) {
       response.status(401);
       response.send("Invalid Access Token");
@@ -55,7 +56,6 @@ app.get("/books/", async (request, response) => {
         }
       });
     }
-  }
 });
 
 // User Register API
